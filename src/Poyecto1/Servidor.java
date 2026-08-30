@@ -1,11 +1,10 @@
 package Poyecto1;
-import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
-import com.sun.net.httpserver.HttpServer;
-
-import java.io.IOException;
-import java.io.OutputStream;
-import java.net.InetSocketAddress;
+import com.sun.net.httpserver.HttpExchange; // recibe y entrega paquete
+import com.sun.net.httpserver.HttpHandler; // interfaz
+import com.sun.net.httpserver.HttpServer; // servidor de http
+import java.io.IOException; // uso de excepciones.
+import java.io.OutputStream; //Escritura de json
+import java.net.InetSocketAddress; //Direccion donde debe escuchar
 
 public class Servidor {
 
@@ -37,12 +36,12 @@ public class Servidor {
 							+ "  {\"id\": 2, \"titulo\": \"Kingdom Come: Deliverance II\", \"genero\": \"RPG\"},\n"
 							+ "  {\"id\": 3, \"titulo\": \"Astroneer\", \"genero\": \"Supervivencia\"}\n" + "]";
 
-					exchange.getResponseHeaders().set("Content-Type", "application/json; charset=UTF-8");
+					exchange.getResponseHeaders().set("Content-Type", "application/json; charset=UTF-8"); //tipo que se envia
 					byte[] bytes = jsonResponse.getBytes("UTF-8");
-					exchange.sendResponseHeaders(200, bytes.length);
+					exchange.sendResponseHeaders(200, bytes.length); //200 ok, enviado
 
 					OutputStream os = exchange.getResponseBody();
-					os.write(bytes);
+					os.write(bytes); //escribe el vector json
 					os.close();
 				}
 				// Ruta no encontrada (404 Not Found)

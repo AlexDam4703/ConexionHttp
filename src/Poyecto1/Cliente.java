@@ -14,7 +14,7 @@ public class Cliente {
         hacerSolicitud(client, "http://localhost:8080/api/juegos");
 
         System.out.println("\n=== PRUEBA 2: Solicitud a ruta inexistente (Esperado: 404 Not Found) ===");
-        hacerSolicitud(client, "http://localhost:8080/api/juegos/ruta-fantasma");
+        hacerSolicitud(client, "http://localhost:8080/api/juegos/rutaFalsa");
     }
 
     private static void hacerSolicitud(HttpClient client, String url) {
