@@ -40,7 +40,7 @@ const renderizarJuegos = (lista) => {
         return;
     }
 
-    // Recorremos la lista y creamos el HTML dinámico
+    // Recorremos la lista y creamos el HTML dinámico usando DOM
     lista.forEach(({ id, nombre, genero, precio }) => {
         const tarjeta = document.createElement('article');
         tarjeta.classList.add('tarjeta-juego');
