@@ -31,12 +31,17 @@ public class Servidor {
 
 				// Respuesta valida (200 OK)
 				if (path.equals("/api/juegos")) {
+					// Cambiamos "titulo" por "nombre" para que encaje con app.js y agregamos "precio"
 					String jsonResponse = "[\n"
-							+ "  {\"id\": 1, \"titulo\": \"Satisfactory\", \"genero\": \"Automatizacion\"},\n"
-							+ "  {\"id\": 2, \"titulo\": \"Kingdom Come: Deliverance II\", \"genero\": \"RPG\"},\n"
-							+ "  {\"id\": 3, \"titulo\": \"Astroneer\", \"genero\": \"Supervivencia\"}\n" + "]";
+							+ "  {\"id\": 1, \"nombre\": \"Satisfactory\", \"genero\": \"Automatizacion\", \"precio\": 38.99},\n"
+							+ "  {\"id\": 2, \"nombre\": \"Kingdom Come: Deliverance II\", \"genero\": \"RPG\", \"precio\": 59.99},\n"
+							+ "  {\"id\": 3, \"nombre\": \"Astroneer\", \"genero\": \"Supervivencia\", \"precio\": 29.99}\n" + "]";
 
 					exchange.getResponseHeaders().set("Content-Type", "application/json; charset=UTF-8"); //tipo que se envia
+					
+					// --- LÍNEA AÑADIDA PARA PERMITIR CONEXIÓN DESDE EL FRONTEND (CORS) ---
+					exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
+
 					byte[] bytes = jsonResponse.getBytes("UTF-8");
 					exchange.sendResponseHeaders(200, bytes.length); //200 ok, enviado
 
@@ -58,6 +63,10 @@ public class Servidor {
 			String jsonError = "{\"error\": \"Juego no encontrado\", \"codigo\": 404}";
 
 			exchange.getResponseHeaders().set("Content-Type", "application/json; charset=UTF-8");
+			
+			// --- TAMBIÉN EN EL 404 POR SEGURIDAD ---
+			exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
+
 			byte[] bytes = jsonError.getBytes("UTF-8");
 			exchange.sendResponseHeaders(404, bytes.length);
 
